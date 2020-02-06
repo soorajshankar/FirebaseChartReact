@@ -1,30 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import HelloMessage from "./components/HelloMessage";
-import StateExample from "./components/StateExample";
-import FCDemo from "./components/FCDemo";
+// import HelloMessage from "./components/HelloMessage";
+// import StateExample from "./components/StateExample";
+// import FCDemo from "./components/FCDemo";
+import Table from "./components/Table";
+import { init, analytics } from "./config/firebase";
+import ChartComponent from "./components/ChartComponent";
 
 function App() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    init();
+    analytics();
+    setLoading(false);
+  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>React</p>
-        <HelloMessage name="sooraj" />
-        <HelloMessage name="Tom" />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <StateExample />
-        <h1>React FC</h1>
-        <FCDemo name="Harry"/>
-      </header>
+      {/* <header className="App-header"> */}
+      {!loading && <ChartComponent {...{ type: "co2" }} />}
+      {!loading && <ChartComponent {...{ type: "humidity" }} />}
+      {!loading && <ChartComponent {...{ type: "temperature" }} />}
+      {/* <Table /> */}
+      {/* </header> */}
     </div>
   );
 }
