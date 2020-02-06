@@ -31,7 +31,6 @@ const ChartComponent = ({ type, unit }) => {
   const childListener = (ref, snapData) =>
     ref.on("child_added", child => {
       if (!(child.key in snapData)) {
-        console.log("valid");
         setdata(data => {
           var newData = { ...data };
           var { x, y } = newData;
@@ -42,7 +41,6 @@ const ChartComponent = ({ type, unit }) => {
       }
     });
 
-  console.log(data);
   return <Plot data={[data]} layout={{ title: type }} />;
 };
 
